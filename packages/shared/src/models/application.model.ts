@@ -1,3 +1,5 @@
+import { ISODateString } from '../types';
+
 export type ApplicationStatus = 'pending' | 'reviewed' | 'rejected' | 'accepted';
 
 export interface Application {
@@ -8,5 +10,5 @@ export interface Application {
   applicantEmail: string;
   coverLetter?: string;
   status: ApplicationStatus;
-  appliedAt: string;
+  appliedAt: ISODateString;
 }

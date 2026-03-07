@@ -1,3 +1,5 @@
+import { ISODateString } from '../types';
+
 export interface Job {
   id: string;
   title: string;
@@ -8,6 +10,6 @@ export interface Job {
   requirements: string[];
   salaryRange?: string;
   modality: 'remote' | 'onsite' | 'hybrid';
-  createdAt: string;
+  createdAt: ISODateString;
   isActive: boolean;
 }
