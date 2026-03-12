@@ -11,11 +11,16 @@
   },
   "dependencies": {
     "@job-portal/shared": "workspace:*",
+    "@tanstack/react-query": "^5.90.21",
+    "@tanstack/react-router": "^1.166.7",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.1",
+    "@tanstack/react-query-devtools": "^5.91.3",
+    "@tanstack/router-devtools": "^1.166.7",
     "@types/node": "^20.19.35",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
