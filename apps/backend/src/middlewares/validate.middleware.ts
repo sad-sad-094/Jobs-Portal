@@ -28,7 +28,7 @@ export const validate = (schema: RequestSchema) => {
       // Map each Zod issue to a { field, message } pair.
       // err.path is like ['body', 'title'] — we drop the first segment (body/params/query)
       // so the reported field is the actual field name relative to its section (e.g. 'title').
-      const errors = result.error.issues.map((err: (typeof result.error.issues)[number]) => ({
+      const errors = result.error.issues.map(err => ({
         field: err.path.slice(1).join('.'), // e.g. ['body', 'title'] → 'title'
         message: err.message,
       }));
@@ -41,6 +41,8 @@ export const validate = (schema: RequestSchema) => {
     // Validation passed — write coerced/transformed values back onto req
     // so controllers always receive the Zod-parsed output, not the raw input.
     req.body = result.data.body;
+    if (result.data.query) req.query = result.data.query as Request['query'];
+    if (result.data.params) req.params = result.data.params as Request['params'];
     next();
   };
 };
