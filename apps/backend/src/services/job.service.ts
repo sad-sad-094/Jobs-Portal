@@ -7,8 +7,8 @@ export function getAllJobs(filters: JobQuery = {}): Job[] {
   let jobs = jobsMock.filter(job => job.isActive);
 
   // Returns jobs filtered by category Id.
-  if (filters.categoryId) {
-    jobs = jobs.filter(job => job.categoryId === filters.categoryId);
+  if (filters.roleId) {
+    jobs = jobs.filter(job => job.roleId === filters.roleId);
   }
 
   // Returns jobs filtered by experience level.
