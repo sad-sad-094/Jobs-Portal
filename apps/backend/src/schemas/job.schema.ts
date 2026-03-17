@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const jobFiltersSchema = z.object({
-  roleId: z.string().optional(),
+  role: z.string().optional(),
   experience: z.enum(['junior', 'mid', 'semi senior', 'senior']).optional(),
   modality: z.enum(['remote', 'onsite', 'hybrid']).optional(),
   search: z.string().optional(),

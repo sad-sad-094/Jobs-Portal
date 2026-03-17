@@ -6,9 +6,9 @@ export function getAllJobs(filters: JobQuery = {}): Job[] {
   // Returns all active jobs from data, excluding by 'isActive'.
   let jobs = jobsMock.filter(job => job.isActive);
 
-  // Returns jobs filtered by category Id.
-  if (filters.roleId) {
-    jobs = jobs.filter(job => job.roleId === filters.roleId);
+  // Returns jobs filtered by role.
+  if (filters.role) {
+    jobs = jobs.filter(job => job.role === filters.role);
   }
 
   // Returns jobs filtered by experience level.
