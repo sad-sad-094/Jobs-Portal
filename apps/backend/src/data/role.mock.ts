@@ -1,6 +1,6 @@
 import { Role } from '@job-portal/shared';
 
-export const categoriesMock: Role[] = [
+export const rolesMock: Role[] = [
   { id: 'cat-1', name: 'Frontend', slug: 'frontend' },
   { id: 'cat-2', name: 'Backend', slug: 'backend' },
   { id: 'cat-3', name: 'Full Stack', slug: 'full-stack' },
