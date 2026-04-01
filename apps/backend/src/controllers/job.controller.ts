@@ -10,8 +10,8 @@ import * as jobService from '../services/job.service';
  */
 export const queryJobs = (req: Request, res: Response, next: NextFunction): void => {
   try {
-    // Cast query params directly to JobQuery — validation is expected upstream (Zod middleware)
-    const filters = req.query as unknown as JobQuery;
+    // Safe: Zod middleware already validated and wrote the parsed shape back onto req.query
+    const filters = req.query as JobQuery;
     const data = jobService.getAllJobs(filters);
     res.status(200).json({ success: true, data });
   } catch (error) {
