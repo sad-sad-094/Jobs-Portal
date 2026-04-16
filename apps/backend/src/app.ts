@@ -8,7 +8,7 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/health', (_req, res) => {
+app.get('/api/health', (_req, res): void => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
