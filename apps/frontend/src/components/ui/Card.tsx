@@ -4,7 +4,12 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
 }
 
-const Card = ({ hoverable = false, children, className = '', ...props }: CardProps) => {
+const Card = ({
+  hoverable = false,
+  children,
+  className = '',
+  ...props
+}: CardProps): JSX.Element => {
   return (
     <div
       className={`

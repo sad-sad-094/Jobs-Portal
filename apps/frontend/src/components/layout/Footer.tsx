@@ -1,4 +1,4 @@
-const Footer = () => {
+const Footer = (): JSX.Element => {
   return (
     <footer className="border-t border-(--color-border) bg-(--color-background)">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

@@ -8,7 +8,7 @@ const sizeStyles = {
   lg: 'h-10 w-10',
 };
 
-const Spinner = ({ size = 'md' }: SpinnerProps) => {
+const Spinner = ({ size = 'md' }: SpinnerProps): JSX.Element => {
   return (
     <div className="flex items-center justify-center">
       <div

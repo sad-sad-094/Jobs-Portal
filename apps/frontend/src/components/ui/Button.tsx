@@ -35,7 +35,7 @@ const Button = ({
   disabled,
   className = '',
   ...props
-}: ButtonProps) => {
+}: ButtonProps): JSX.Element => {
   return (
     <button
       disabled={disabled || isLoading}

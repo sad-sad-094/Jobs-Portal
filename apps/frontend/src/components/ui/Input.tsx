@@ -6,7 +6,14 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   fullWidth?: boolean;
 }
 
-const Input = ({ label, error, fullWidth = false, className = '', id, ...props }: InputProps) => {
+const Input = ({
+  label,
+  error,
+  fullWidth = false,
+  className = '',
+  id,
+  ...props
+}: InputProps): JSX.Element => {
   return (
     <div className={`flex flex-col gap-1.5 ${fullWidth ? 'w-full' : ''}`}>
       {label ? (

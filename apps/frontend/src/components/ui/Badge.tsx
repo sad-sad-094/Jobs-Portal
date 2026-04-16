@@ -13,7 +13,7 @@ const variantStyles: Record<BadgeVariant, string> = {
   neutral: 'bg-(--color-surface-raised) text-(--color-text-secondary)',
 };
 
-const Badge = ({ label, variant = 'neutral' }: BadgeProps) => {
+const Badge = ({ label, variant = 'neutral' }: BadgeProps): JSX.Element => {
   return (
     <span
       className={`inline-flex items-center rounded-(--radius-sm) px-2 py-0.5 text-xs font-medium ${variantStyles[variant]}`}

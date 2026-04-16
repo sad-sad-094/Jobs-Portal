@@ -2,7 +2,7 @@ import { Outlet } from '@tanstack/react-router';
 import Header from './Header';
 import Footer from './Footer';
 
-const Layout = () => {
+const Layout = (): JSX.Element => {
   return (
     <div className="flex min-h-screen flex-col bg-(--color-background) text-(--color-text-primary)">
       <Header />
