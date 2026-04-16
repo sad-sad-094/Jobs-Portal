@@ -8,7 +8,7 @@ export interface Job {
   title: string;
   company: string;
   location: string;
-  categoryId: string;
+  role: string;
   description: string;
   requirements: string[];
   technologies: string[];
