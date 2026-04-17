@@ -21,9 +21,9 @@ const JobDetailPage = () => {
   if (isError || !data?.data) {
     return (
       <div className="flex flex-col items-center gap-4 py-16">
-        <p className="text-(--color-error)">No se encontró el empleo solicitado.</p>
+        <p className="text-(--color-error)">The requested job was not found.</p>
         <Button variant="secondary" onClick={() => navigate({ to: '/jobs' })}>
-          Volver a empleos
+          Back to jobs
         </Button>
       </div>
     );
@@ -37,7 +37,7 @@ const JobDetailPage = () => {
         onClick={() => navigate({ to: '/jobs' })}
         className="self-start"
       >
-        ← Volver a empleos
+        ← Back to jobs
       </Button>
       <JobDetail job={data.data} />
     </div>

@@ -21,9 +21,9 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'px-3 py-1.5 text-xs',
-  md: 'px-4 py-2 text-sm',
-  lg: 'px-6 py-3 text-base',
+  sm: 'px-4 py-2 text-xs',
+  md: 'px-6 py-2.5 text-sm',
+  lg: 'px-8 py-3.5 text-base',
 };
 
 const Button = ({
@@ -40,7 +40,7 @@ const Button = ({
     <button
       disabled={disabled || isLoading}
       className={`
-        inline-flex items-center justify-center gap-2 rounded-(--radius-md) font-medium
+        inline-flex items-center justify-center gap-2 rounded-(--radius-md) font-medium whitespace-nowrap
         transition-colors cursor-pointer disabled:cursor-not-allowed
         ${variantStyles[variant]}
         ${sizeStyles[size]}

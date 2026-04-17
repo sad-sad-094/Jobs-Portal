@@ -7,9 +7,9 @@ interface JobDetailProps {
 }
 
 const modalityLabels: Record<Job['modality'], string> = {
-  remote: 'Remoto',
-  onsite: 'Presencial',
-  hybrid: 'Híbrido',
+  remote: 'Remote',
+  onsite: 'On-site',
+  hybrid: 'Hybrid',
 };
 
 const experienceLabels: Record<Job['experience'], string> = {
@@ -55,7 +55,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
 
           {/* Description */}
           <div className="flex flex-col gap-2">
-            <h2 className="font-semibold text-(--color-text-primary)">Descripción</h2>
+            <h2 className="font-semibold text-(--color-text-primary)">Description</h2>
             <p className="text-sm leading-relaxed text-(--color-text-secondary)">
               {job.description}
             </p>
@@ -63,7 +63,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
 
           {/* Requirements */}
           <div className="flex flex-col gap-2">
-            <h2 className="font-semibold text-(--color-text-primary)">Requisitos</h2>
+            <h2 className="font-semibold text-(--color-text-primary)">Requirements</h2>
             <ul className="flex flex-col gap-1">
               {job.requirements.map((req, index) => (
                 <li
@@ -81,7 +81,7 @@ const JobDetail = ({ job }: JobDetailProps) => {
 
           {/* Application Form */}
           <div className="flex flex-col gap-4">
-            <h2 className="font-semibold text-(--color-text-primary)">Aplicar a esta vacante</h2>
+            <h2 className="font-semibold text-(--color-text-primary)">Apply for this position</h2>
             <ApplicationForm jobId={job.id} />
           </div>
         </div>

@@ -8,10 +8,10 @@ const statusConfig: Record<
   ApplicationStatus,
   { label: string; variant: 'primary' | 'success' | 'warning' | 'error' | 'neutral' }
 > = {
-  pending: { label: 'Pendiente', variant: 'warning' },
-  reviewed: { label: 'En revisión', variant: 'primary' },
-  accepted: { label: 'Aceptado', variant: 'success' },
-  rejected: { label: 'Rechazado', variant: 'error' },
+  pending: { label: 'Pending', variant: 'warning' },
+  reviewed: { label: 'Under review', variant: 'primary' },
+  accepted: { label: 'Accepted', variant: 'success' },
+  rejected: { label: 'Rejected', variant: 'error' },
 };
 
 const ApplicationList = () => {
@@ -21,7 +21,7 @@ const ApplicationList = () => {
   if (isLoading) return <Spinner size="lg" />;
 
   if (isError) {
-    return <p className="text-center text-(--color-error)">Error al cargar las aplicaciones.</p>;
+    return <p className="text-center text-(--color-error)">Failed to load applications.</p>;
   }
 
   const applications = data?.data ?? [];
@@ -29,7 +29,7 @@ const ApplicationList = () => {
   if (applications.length === 0) {
     return (
       <div className="py-16 text-center">
-        <p className="text-(--color-text-secondary)">Aún no has aplicado a ninguna vacante.</p>
+        <p className="text-(--color-text-secondary)">You have not applied to any job yet.</p>
       </div>
     );
   }
@@ -47,8 +47,8 @@ const ApplicationList = () => {
               <div className="flex flex-col gap-1">
                 <p className="font-medium text-(--color-text-primary)">Job ID: {appl.jobId}</p>
                 <p className="text-sm text-(--color-text-muted)">
-                  Aplicado el{' '}
-                  {new Date(appl.appliedAt).toLocaleDateString('es-CO', {
+                  Applied on{' '}
+                  {new Date(appl.appliedAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',

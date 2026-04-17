@@ -8,9 +8,9 @@ interface JobCardProps {
 }
 
 const modalityLabels: Record<Job['modality'], string> = {
-  remote: 'Remoto',
-  onsite: 'Presencial',
-  hybrid: 'Híbrido',
+  remote: 'Remote',
+  onsite: 'On-site',
+  hybrid: 'Hybrid',
 };
 
 const experienceLabels: Record<Job['experience'], string> = {

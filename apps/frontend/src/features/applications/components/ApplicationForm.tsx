@@ -29,10 +29,8 @@ const ApplicationForm = ({ jobId, onSuccess }: ApplicationFormProps) => {
   if (isSuccess) {
     return (
       <div className="rounded-(--radius-lg) border border-(--color-success)/30 bg-(--color-success)/10 p-6 text-center">
-        <p className="font-medium text-(--color-success)">¡Aplicación enviada exitosamente!</p>
-        <p className="mt-1 text-sm text-(--color-text-secondary)">
-          Nos pondremos en contacto contigo pronto.
-        </p>
+        <p className="font-medium text-(--color-success)">Application submitted successfully!</p>
+        <p className="mt-1 text-sm text-(--color-text-secondary)">We will get back to you soon.</p>
       </div>
     );
   }
@@ -40,32 +38,32 @@ const ApplicationForm = ({ jobId, onSuccess }: ApplicationFormProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="rounded-(--radius-md) border border-(--color-border) bg-(--color-surface-raised) p-4">
-        <p className="text-sm text-(--color-text-secondary)">Aplicando como</p>
+        <p className="text-sm text-(--color-text-secondary)">Applying as</p>
         <p className="font-medium text-(--color-text-primary)">{user.name}</p>
         <p className="text-sm text-(--color-text-muted)">{user.email}</p>
       </div>
 
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-(--color-text-secondary)">
-          Carta de presentación <span className="text-(--color-text-muted)">(opcional)</span>
+          Cover letter <span className="text-(--color-text-muted)">(optional)</span>
         </label>
         <textarea
           rows={5}
           value={coverLetter}
           onChange={e => setCoverLetter(e.target.value)}
-          placeholder="Cuéntale al empleador por qué eres el candidato ideal..."
+          placeholder="Tell the employer why you are the ideal candidate..."
           className="rounded-(--radius-md) border border-(--color-border) bg-(--color-surface) px-3 py-2 text-sm text-(--color-text-primary) placeholder:text-(--color-text-muted) outline-none transition-colors focus:border-(--color-primary) focus:ring-1 focus:ring-(--color-primary) resize-none"
         />
       </div>
 
       {isError && (
         <p className="text-sm text-(--color-error)">
-          {(error as { message?: string })?.message ?? 'Error al enviar la aplicación'}
+          {(error as { message?: string })?.message ?? 'Failed to submit the application'}
         </p>
       )}
 
       <Button onClick={handleSubmit} isLoading={isPending} fullWidth>
-        Aplicar ahora
+        Apply now
       </Button>
     </div>
   );

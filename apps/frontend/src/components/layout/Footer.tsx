@@ -8,7 +8,7 @@ const Footer = (): JSX.Element => {
             <span className="text-sm font-bold text-(--color-primary-light)">Portal</span>
           </div>
           <p className="text-sm text-(--color-text-muted)">
-            &copy; {new Date().getFullYear()} JobsPortal. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} JobsPortal. All rights reserved.
           </p>
         </div>
       </div>

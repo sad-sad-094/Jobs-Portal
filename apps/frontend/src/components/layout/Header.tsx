@@ -15,14 +15,14 @@ const Header = (): JSX.Element => {
             className="text-sm text-(--color-text-secondary) transition-colors hover:text-(--color-text-primary)"
             activeProps={{ className: 'text-sm text-(--color-text-primary) font-medium' }}
           >
-            Empleos
+            Jobs
           </Link>
           <Link
             to="/applications"
             className="text-sm text-(--color-text-secondary) transition-colors hover:text-(--color-text-primary)"
             activeProps={{ className: 'text-sm text-(--color-text-primary) font-medium' }}
           >
-            Mis Aplicaciones
+            My Applications
           </Link>
         </nav>
       </div>

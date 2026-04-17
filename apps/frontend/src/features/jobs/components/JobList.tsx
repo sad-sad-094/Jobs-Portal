@@ -20,8 +20,8 @@ const JobList = ({ jobs, isLoading, isError }: JobListProps) => {
   if (isError) {
     return (
       <div className="py-16 text-center">
-        <p className="text-(--color-error)">Error al cargar los empleos.</p>
-        <p className="mt-1 text-sm text-(--color-text-muted)">Inténtalo de nuevo en un momento.</p>
+        <p className="text-(--color-error)">Failed to load jobs.</p>
+        <p className="mt-1 text-sm text-(--color-text-muted)">Please try again in a moment.</p>
       </div>
     );
   }
@@ -30,7 +30,7 @@ const JobList = ({ jobs, isLoading, isError }: JobListProps) => {
     return (
       <div className="py-16 text-center">
         <p className="text-(--color-text-secondary)">
-          No se encontraron empleos con los filtros seleccionados.
+          No jobs found matching the selected filters.
         </p>
       </div>
     );

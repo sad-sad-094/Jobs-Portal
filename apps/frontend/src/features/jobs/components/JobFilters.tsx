@@ -8,14 +8,14 @@ interface JobFiltersProps {
 }
 
 const modalityOptions: { value: Job['modality'] | ''; label: string }[] = [
-  { value: '', label: 'Todas las modalidades' },
-  { value: 'remote', label: 'Remoto' },
-  { value: 'onsite', label: 'Presencial' },
-  { value: 'hybrid', label: 'Híbrido' },
+  { value: '', label: 'All modalities' },
+  { value: 'remote', label: 'Remote' },
+  { value: 'onsite', label: 'On-site' },
+  { value: 'hybrid', label: 'Hybrid' },
 ];
 
 const experienceOptions: { value: Job['experience'] | ''; label: string }[] = [
-  { value: '', label: 'Todos los niveles' },
+  { value: '', label: 'All levels' },
   { value: 'junior', label: 'Junior' },
   { value: 'mid', label: 'Mid' },
   { value: 'semi-senior', label: 'Semi Senior' },
@@ -35,8 +35,8 @@ const JobFilters = ({ filters, onChange }: JobFiltersProps) => {
       <div className="flex-1">
         <Input
           id="search"
-          label="Buscar"
-          placeholder="Cargo, empresa o tecnología..."
+          label="Search"
+          placeholder="Role, company or technology..."
           value={filters.search ?? ''}
           onChange={e => onChange({ ...filters, search: e.target.value })}
           fullWidth
@@ -45,7 +45,7 @@ const JobFilters = ({ filters, onChange }: JobFiltersProps) => {
 
       <div className="flex flex-col gap-1.5 sm:w-48">
         <label htmlFor="modality" className="text-sm font-medium text-(--color-text-secondary)">
-          Modalidad
+          Modality
         </label>
         <select
           id="modality"
@@ -63,7 +63,7 @@ const JobFilters = ({ filters, onChange }: JobFiltersProps) => {
 
       <div className="flex flex-col gap-1.5 sm:w-48">
         <label htmlFor="experience" className="text-sm font-medium text-(--color-text-secondary)">
-          Experiencia
+          Experience
         </label>
         <select
           id="experience"
