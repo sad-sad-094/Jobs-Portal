@@ -4,7 +4,7 @@ import type { ExperienceLevel, JobModality } from '@job-portal/shared';
 const experienceLevels = [
   'junior',
   'mid',
-  'semi senior',
+  'semi-senior',
   'senior',
 ] as const satisfies readonly ExperienceLevel[];
 const jobModalities = ['remote', 'onsite', 'hybrid'] as const satisfies readonly JobModality[];
