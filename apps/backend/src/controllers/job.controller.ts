@@ -13,7 +13,7 @@ export const queryJobs = (req: Request, res: Response, next: NextFunction): void
     // Safe: Zod middleware already validated and wrote the parsed shape back onto req.query
     const filters = req.query as JobQuery;
     const data = jobService.getAllJobs(filters);
-    res.status(200).json({ success: true, data });
+    res.status(200).json({ success: true, data, total: data.length });
   } catch (error) {
     next(error); // forward unexpected errors to the global error handler
   }
