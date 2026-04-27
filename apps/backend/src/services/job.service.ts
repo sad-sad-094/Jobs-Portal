@@ -1,41 +1,33 @@
-import { Job } from '@job-portal/shared';
-import { jobsMock } from '../data/jobs.mock';
+import { Prisma } from '../generated/prisma/client';
+import { prisma } from '../db';
 import { JobQuery } from '../schemas/job.schema';
 
-export function getAllJobs(filters: JobQuery = {}): Job[] {
-  // Returns all active jobs from data, excluding by 'isActive'.
-  let jobs = jobsMock.filter(job => job.isActive);
+export const getAllJobs = async (filters: JobQuery) => {
+  const where: Prisma.JobWhereInput = { isActive: true };
 
-  // Returns jobs filtered by role.
-  if (filters.role) {
-    jobs = jobs.filter(job => job.role === filters.role);
-  }
-
-  // Returns jobs filtered by experience level.
-  if (filters.experience) {
-    jobs = jobs.filter(job => job.experience === filters.experience);
-  }
-
-  // Returns jobs filtered by modality.
   if (filters.modality) {
-    jobs = jobs.filter(job => job.modality === filters.modality);
+    where.modality = filters.modality;
   }
 
-  // Returns jobs filtered by free keyword search.
+  if (filters.experience) {
+    where.experience = filters.experience;
+  }
+
+  if (filters.roleId) {
+    where.roleId = filters.roleId;
+  }
+
   if (filters.search) {
-    const term = filters.search.toLowerCase();
-    jobs = jobs.filter(
-      job =>
-        job.title.toLowerCase().includes(term) ||
-        job.company.toLowerCase().includes(term) ||
-        job.technologies.some(t => t.toLowerCase().includes(term)),
-    );
+    where.OR = [
+      { title: { contains: filters.search, mode: 'insensitive' } },
+      { company: { contains: filters.search, mode: 'insensitive' } },
+      { description: { contains: filters.search, mode: 'insensitive' } },
+    ];
   }
 
-  return jobs;
-}
+  return prisma.job.findMany({ where });
+};
 
-export function getJobById(id: string): Job | undefined {
-  // Returns job filtered by its Id.
-  return jobsMock.find(job => job.id === id && job.isActive);
-}
+export const getJobById = async (id: string) => {
+  return prisma.job.findFirst({ where: { id, isActive: true } });
+};

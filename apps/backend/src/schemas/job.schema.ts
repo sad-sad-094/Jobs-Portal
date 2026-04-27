@@ -10,7 +10,7 @@ const experienceLevels = [
 const jobModalities = ['remote', 'onsite', 'hybrid'] as const satisfies readonly JobModality[];
 
 const jobFiltersSchema = z.object({
-  role: z.string().optional(),
+  roleId: z.string().optional(),
   experience: z.enum(experienceLevels).optional(),
   modality: z.enum(jobModalities).optional(),
   search: z.string().optional(),

@@ -3,10 +3,6 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "references": [
-    { "path": "./packages/shared" },
-    { "path": "./apps/backend" },
-    { "path": "./apps/frontend" }
-  ],
+  "references": [{ "path": "./packages/shared" }, { "path": "./apps/frontend" }],
   "files": []
 }

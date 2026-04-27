@@ -1,6 +1,5 @@
-import { Role } from '@job-portal/shared';
-import { rolesMock } from '../data/role.mock';
+import { prisma } from '../db';
 
-export function getAllRoles(): Role[] {
-  return rolesMock;
-}
+export const getAllRoles = async () => {
+  return prisma.role.findMany();
+};

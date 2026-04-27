@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import * as roleService from '../services/role.service';
 
-export const queryRoles = (req: Request, res: Response, next: NextFunction): void => {
+export const getRoles = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const roles = roleService.getAllRoles();
-    res.json({ success: true, data: roles });
+    const data = await roleService.getAllRoles();
+    res.json({ success: true, data });
   } catch (error) {
     next(error);
   }

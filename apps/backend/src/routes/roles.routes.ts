@@ -1,8 +1,8 @@
 import { Router, type IRouter } from 'express';
-import { queryRoles } from '../controllers/role.controller';
+import { getRoles } from '../controllers/role.controller';
 
 const router: IRouter = Router();
 
-router.get('/', queryRoles);
+router.get('/', getRoles);
 
 export default router;

@@ -1,32 +1,29 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Application, toISODate } from '@job-portal/shared';
-import { applicationsMock } from '../data/applications.mock';
+import { prisma } from '../db';
 import { CreateApplicationDTO } from '../schemas/application.schema';
 
-export const createApplication = (data: CreateApplicationDTO): Application => {
-  const alreadyApplied = applicationsMock.some(
-    app => app.jobId === data.jobId && app.userId === data.userId,
-  );
+export const createApplication = async (data: CreateApplicationDTO) => {
+  const job = await prisma.job.findFirst({ where: { id: data.jobId, isActive: true } });
+  if (!job) {
+    throw new Error(`Job with id ${data.jobId} not found or inactive`);
+  }
 
-  // If user has already applied to one job, returns error.
+  const alreadyApplied = await prisma.application.findFirst({
+    where: { jobId: data.jobId, userId: data.userId },
+  });
   if (alreadyApplied) {
     throw new Error('User has already applied to this job');
   }
 
-  // Create a new object with the applicant user info for send to data.
-  const newApplication: Application = {
-    id: uuidv4(),
-    ...data,
-    status: 'pending',
-    appliedAt: toISODate(new Date().toISOString()),
-  };
-
-  // Adds new application to data.
-  applicationsMock.push(newApplication);
-  return newApplication;
+  return prisma.application.create({
+    data: {
+      id: uuidv4(),
+      ...data,
+      status: 'pending',
+    },
+  });
 };
 
-export const getApplicationsByUser = (userId: string): Application[] => {
-  // Returns applications made by an user by its Id.
-  return applicationsMock.filter(app => app.userId === userId);
+export const getApplicationsByUser = async (userId: string) => {
+  return prisma.application.findMany({ where: { userId } });
 };
