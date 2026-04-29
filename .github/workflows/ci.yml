@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  ci:
+    name: Type-check and Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build shared package
+        run: pnpm --filter @job-portal/shared build
+
+      - name: Generate Prisma client
+        run: pnpm --filter @job-portal/backend db:generate
+
+      - name: Type-check backend
+        run: pnpm --filter @job-portal/backend build
+
+      - name: Type-check frontend
+        run: pnpm --filter @job-portal/frontend lint
