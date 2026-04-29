@@ -10,6 +10,8 @@ jobs:
   ci:
     name: Type-check and Build
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
       - name: Checkout repository
