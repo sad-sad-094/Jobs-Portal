@@ -1,12 +1,32 @@
-import { Job, toISODate } from '@job-portal/shared';
+import 'dotenv/config';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '../generated/prisma/client';
 
-export const jobsMock: Job[] = [
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
+
+const roles = [
+  { id: 'role-1', name: 'Frontend', slug: 'frontend' },
+  { id: 'role-2', name: 'Backend', slug: 'backend' },
+  { id: 'role-3', name: 'Full Stack', slug: 'full-stack' },
+  { id: 'role-4', name: 'Mobile', slug: 'mobile' },
+  { id: 'role-5', name: 'DevOps', slug: 'devops' },
+  { id: 'role-6', name: 'Data Science', slug: 'data-science' },
+  { id: 'role-7', name: 'UI/UX Design', slug: 'ui-ux-design' },
+  { id: 'role-8', name: 'QA / Testing', slug: 'qa-testing' },
+  { id: 'role-9', name: 'Security', slug: 'security' },
+  { id: 'role-10', name: 'Product Management', slug: 'product-management' },
+];
+
+const roleIdBySlug: Record<string, string> = Object.fromEntries(roles.map(r => [r.slug, r.id]));
+
+const jobs = [
   {
     id: 'job-1',
     title: 'Frontend Developer',
     company: 'Acme Corp',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-1',
+    roleId: roleIdBySlug['frontend'],
     description:
       'Build and maintain user-facing features for our SaaS platform using React and TypeScript. You will collaborate closely with designers and backend engineers to deliver polished, performant UIs.',
     requirements: [
@@ -15,11 +35,10 @@ export const jobsMock: Job[] = [
       'Familiarity with REST APIs',
       'Git workflow knowledge',
     ],
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
-    experience: 'mid',
     salaryRange: '$2,500 - $3,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-01T09:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-01T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -27,7 +46,7 @@ export const jobsMock: Job[] = [
     title: 'Senior Backend Engineer',
     company: 'Globant',
     location: 'Montevideo, Uruguay',
-    categoryId: 'cat-2',
+    roleId: roleIdBySlug['backend'],
     description:
       'Design and develop scalable microservices for a high-traffic e-commerce platform. You will own entire domains end-to-end and mentor junior engineers.',
     requirements: [
@@ -36,11 +55,10 @@ export const jobsMock: Job[] = [
       'Knowledge of microservices patterns',
       'AWS or GCP experience',
     ],
-    technologies: ['Node.js', 'Express', 'PostgreSQL', 'Redis', 'Docker'],
-    experience: 'senior',
     salaryRange: '$4,500 - $6,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-02T10:30:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-02T10:30:00.000Z'),
     isActive: true,
   },
   {
@@ -48,7 +66,7 @@ export const jobsMock: Job[] = [
     title: 'Full Stack Developer',
     company: 'Mercado Libre',
     location: 'Santiago, Chile',
-    categoryId: 'cat-3',
+    roleId: roleIdBySlug['full-stack'],
     description:
       'Join our growth team to build internal tools and customer-facing features across the stack. You will work in two-week sprints with a cross-functional team.',
     requirements: [
@@ -57,11 +75,10 @@ export const jobsMock: Job[] = [
       'SQL proficiency',
       'Good communication skills',
     ],
-    technologies: ['Vue 3', 'Python', 'FastAPI', 'MySQL', 'Docker'],
-    experience: 'mid',
     salaryRange: '$3,000 - $4,000 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-02T14:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-02T14:00:00.000Z'),
     isActive: true,
   },
   {
@@ -69,7 +86,7 @@ export const jobsMock: Job[] = [
     title: 'React Native Developer',
     company: 'Naranja X',
     location: 'Córdoba, Argentina',
-    categoryId: 'cat-4',
+    roleId: roleIdBySlug['mobile'],
     description:
       'Develop and maintain our mobile banking app used by millions of Argentinian customers. You will implement new features and ensure a smooth, reliable experience.',
     requirements: [
@@ -78,11 +95,10 @@ export const jobsMock: Job[] = [
       'Knowledge of mobile CI/CD',
       'Accessibility awareness',
     ],
-    technologies: ['React Native', 'TypeScript', 'Redux Toolkit', 'Jest'],
-    experience: 'mid',
     salaryRange: '$3,200 - $4,200 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-03T08:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-03T08:00:00.000Z'),
     isActive: true,
   },
   {
@@ -90,7 +106,7 @@ export const jobsMock: Job[] = [
     title: 'DevOps Engineer',
     company: 'Auth0 (Okta)',
     location: 'Remote',
-    categoryId: 'cat-5',
+    roleId: roleIdBySlug['devops'],
     description:
       'Manage and evolve our Kubernetes-based infrastructure. You will drive reliability, security, and efficiency across dozens of microservices.',
     requirements: [
@@ -99,11 +115,10 @@ export const jobsMock: Job[] = [
       'CI/CD pipeline experience',
       'Monitoring and alerting experience',
     ],
-    technologies: ['Kubernetes', 'Terraform', 'GitHub Actions', 'Prometheus', 'AWS'],
-    experience: 'senior',
     salaryRange: '$5,000 - $7,000 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-03T11:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-03T11:00:00.000Z'),
     isActive: true,
   },
   {
@@ -111,7 +126,7 @@ export const jobsMock: Job[] = [
     title: 'Data Scientist',
     company: 'Despegar',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-6',
+    roleId: roleIdBySlug['data-science'],
     description:
       'Build predictive models for pricing, demand forecasting, and customer segmentation in the travel industry. Work with large datasets and present insights to stakeholders.',
     requirements: [
@@ -120,11 +135,10 @@ export const jobsMock: Job[] = [
       'Python and SQL fluency',
       'Experience with cloud ML platforms',
     ],
-    technologies: ['Python', 'scikit-learn', 'PySpark', 'SQL', 'GCP'],
-    experience: 'mid',
     salaryRange: '$3,500 - $5,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-03T13:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-03T13:00:00.000Z'),
     isActive: true,
   },
   {
@@ -132,7 +146,7 @@ export const jobsMock: Job[] = [
     title: 'UI/UX Designer',
     company: 'Ualá',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-7',
+    roleId: roleIdBySlug['ui-ux-design'],
     description:
       'Lead the design of new product features for our fintech app. Conduct user research, create wireframes and prototypes, and collaborate with engineering to ship great experiences.',
     requirements: [
@@ -141,11 +155,10 @@ export const jobsMock: Job[] = [
       'Figma proficiency',
       'User research experience',
     ],
-    technologies: ['Figma', 'Maze', 'Zeplin', 'Miro'],
-    experience: 'mid',
     salaryRange: '$2,800 - $3,800 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-04T09:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-04T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -153,7 +166,7 @@ export const jobsMock: Job[] = [
     title: 'QA Automation Engineer',
     company: 'Santander Tech',
     location: 'Madrid, Spain',
-    categoryId: 'cat-8',
+    roleId: roleIdBySlug['qa-testing'],
     description:
       'Design and implement automated test suites for a critical banking platform. You will work with developers to enforce quality standards and reduce release cycle times.',
     requirements: [
@@ -162,11 +175,10 @@ export const jobsMock: Job[] = [
       'CI/CD integration experience',
       'ISTQB certification is a plus',
     ],
-    technologies: ['Playwright', 'TypeScript', 'Jest', 'Postman', 'Jenkins'],
-    experience: 'mid',
     salaryRange: '€2,800 - €3,600/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-04T10:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-04T10:00:00.000Z'),
     isActive: true,
   },
   {
@@ -174,7 +186,7 @@ export const jobsMock: Job[] = [
     title: 'Cloud Security Engineer',
     company: 'Telecom Argentina',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-9',
+    roleId: roleIdBySlug['security'],
     description:
       'Harden our cloud infrastructure and develop security policies across AWS workloads. Perform threat modeling, vulnerability assessments, and incident response.',
     requirements: [
@@ -183,11 +195,10 @@ export const jobsMock: Job[] = [
       'Knowledge of OWASP Top 10',
       'Scripting skills (Python or Bash)',
     ],
-    technologies: ['AWS Security Hub', 'GuardDuty', 'Python', 'Terraform', 'SIEM'],
-    experience: 'senior',
     salaryRange: '$4,000 - $5,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-04T12:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-04T12:00:00.000Z'),
     isActive: true,
   },
   {
@@ -195,7 +206,7 @@ export const jobsMock: Job[] = [
     title: 'Technical Product Manager',
     company: 'Rappi',
     location: 'Bogotá, Colombia',
-    categoryId: 'cat-10',
+    roleId: roleIdBySlug['product-management'],
     description:
       'Own the roadmap for our logistics optimization suite. Work with data scientists and engineers to define, prioritize, and ship features that reduce delivery times.',
     requirements: [
@@ -204,11 +215,10 @@ export const jobsMock: Job[] = [
       'Experience with OKR frameworks',
       'Data-driven decision making',
     ],
-    technologies: ['Jira', 'Mixpanel', 'SQL', 'Confluence', 'Figma'],
-    experience: 'senior',
     salaryRange: '$4,000 - $5,000 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-04T14:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-04T14:00:00.000Z'),
     isActive: true,
   },
   {
@@ -216,7 +226,7 @@ export const jobsMock: Job[] = [
     title: 'Junior Frontend Developer',
     company: 'Nuvemshop',
     location: 'São Paulo, Brazil',
-    categoryId: 'cat-1',
+    roleId: roleIdBySlug['frontend'],
     description:
       'Help build and improve the merchant dashboard for thousands of e-commerce stores. Great opportunity to grow under senior mentorship in a fast-paced environment.',
     requirements: [
@@ -225,11 +235,10 @@ export const jobsMock: Job[] = [
       'Eagerness to learn',
       'Good communication in English',
     ],
-    technologies: ['React', 'JavaScript', 'CSS Modules', 'Git'],
-    experience: 'junior',
     salaryRange: 'R$4,500 - R$6,000/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-05T08:30:00.000Z'),
+    experience: 'junior',
+    createdAt: new Date('2026-03-05T08:30:00.000Z'),
     isActive: true,
   },
   {
@@ -237,7 +246,7 @@ export const jobsMock: Job[] = [
     title: 'Semi Senior Backend Developer',
     company: 'Wolox (Accenture)',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-2',
+    roleId: roleIdBySlug['backend'],
     description:
       'Develop RESTful APIs and integrations for clients in the retail and logistics industries. Participate in code reviews and architecture discussions.',
     requirements: [
@@ -246,11 +255,10 @@ export const jobsMock: Job[] = [
       'PostgreSQL knowledge',
       'Testing practices',
     ],
-    technologies: ['Ruby on Rails', 'PostgreSQL', 'RSpec', 'Docker', 'Heroku'],
-    experience: 'semi senior',
     salaryRange: '$2,800 - $3,800 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-05T09:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-05T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -258,7 +266,7 @@ export const jobsMock: Job[] = [
     title: 'Android Developer',
     company: 'Personal (Telecom)',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-4',
+    roleId: roleIdBySlug['mobile'],
     description:
       'Build features for the Mi Personal app, used daily by millions of mobile subscribers. Focus on performance, reliability, and modern Android architecture.',
     requirements: [
@@ -267,11 +275,10 @@ export const jobsMock: Job[] = [
       'Jetpack Compose experience',
       'MVVM architecture knowledge',
     ],
-    technologies: ['Kotlin', 'Jetpack Compose', 'Retrofit', 'Room', 'Firebase'],
-    experience: 'mid',
     salaryRange: '$3,000 - $4,000 USD/month',
     modality: 'onsite',
-    createdAt: toISODate('2026-03-05T10:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-05T10:00:00.000Z'),
     isActive: true,
   },
   {
@@ -279,7 +286,7 @@ export const jobsMock: Job[] = [
     title: 'Site Reliability Engineer',
     company: 'Satellogic',
     location: 'Remote',
-    categoryId: 'cat-5',
+    roleId: roleIdBySlug['devops'],
     description:
       'Ensure the reliability and performance of satellite data processing pipelines. Define SLOs, manage on-call rotations, and lead post-mortems.',
     requirements: [
@@ -288,11 +295,10 @@ export const jobsMock: Job[] = [
       'Observability tooling expertise',
       'On-call experience',
     ],
-    technologies: ['Linux', 'Kubernetes', 'Grafana', 'Loki', 'Go'],
-    experience: 'senior',
     salaryRange: '$5,500 - $7,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-05T11:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-05T11:00:00.000Z'),
     isActive: true,
   },
   {
@@ -300,7 +306,7 @@ export const jobsMock: Job[] = [
     title: 'Machine Learning Engineer',
     company: 'Tryolabs',
     location: 'Montevideo, Uruguay',
-    categoryId: 'cat-6',
+    roleId: roleIdBySlug['data-science'],
     description:
       'Build end-to-end ML pipelines for clients across retail, healthcare, and logistics. Deploy and monitor models in production environments.',
     requirements: [
@@ -309,11 +315,10 @@ export const jobsMock: Job[] = [
       'MLOps knowledge',
       'Ability to communicate with non-technical clients',
     ],
-    technologies: ['Python', 'PyTorch', 'MLflow', 'FastAPI', 'AWS SageMaker'],
-    experience: 'mid',
     salaryRange: '$4,000 - $5,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-05T12:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-05T12:00:00.000Z'),
     isActive: true,
   },
   {
@@ -321,7 +326,7 @@ export const jobsMock: Job[] = [
     title: 'Senior UI Designer',
     company: 'Mural',
     location: 'Remote',
-    categoryId: 'cat-7',
+    roleId: roleIdBySlug['ui-ux-design'],
     description:
       'Shape the visual language and component library of our collaborative workspace platform. Partner with product and engineering to ensure design consistency at scale.',
     requirements: [
@@ -330,11 +335,10 @@ export const jobsMock: Job[] = [
       'Figma expert',
       'Cross-functional collaboration experience',
     ],
-    technologies: ['Figma', 'Storybook', 'Lottie', 'Notion'],
-    experience: 'senior',
     salaryRange: '$5,000 - $6,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-06T08:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-06T08:00:00.000Z'),
     isActive: true,
   },
   {
@@ -342,7 +346,7 @@ export const jobsMock: Job[] = [
     title: 'Manual QA Analyst',
     company: 'OLX Autos',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-8',
+    roleId: roleIdBySlug['qa-testing'],
     description:
       'Execute manual and exploratory testing on web and mobile apps. Write detailed bug reports and work with developers to ensure high-quality releases.',
     requirements: [
@@ -351,11 +355,10 @@ export const jobsMock: Job[] = [
       'Bug tracking tools (Jira)',
       'Mobile testing knowledge',
     ],
-    technologies: ['Jira', 'TestRail', 'Postman', 'Charles Proxy'],
-    experience: 'junior',
     salaryRange: '$1,200 - $1,800 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-06T09:00:00.000Z'),
+    experience: 'junior',
+    createdAt: new Date('2026-03-06T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -363,7 +366,7 @@ export const jobsMock: Job[] = [
     title: 'Application Security Analyst',
     company: 'Banco Galicia',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-9',
+    roleId: roleIdBySlug['security'],
     description:
       'Perform secure code reviews and penetration tests on web and mobile banking applications. Ensure compliance with PCI-DSS and internal security policies.',
     requirements: [
@@ -372,11 +375,10 @@ export const jobsMock: Job[] = [
       'Familiarity with SAST/DAST tools',
       'Report writing skills',
     ],
-    technologies: ['Burp Suite', 'OWASP ZAP', 'SonarQube', 'Python'],
-    experience: 'semi senior',
     salaryRange: '$3,000 - $4,000 USD/month',
     modality: 'onsite',
-    createdAt: toISODate('2026-03-06T10:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-06T10:00:00.000Z'),
     isActive: true,
   },
   {
@@ -384,7 +386,7 @@ export const jobsMock: Job[] = [
     title: 'Associate Product Manager',
     company: 'dLocal',
     location: 'Montevideo, Uruguay',
-    categoryId: 'cat-10',
+    roleId: roleIdBySlug['product-management'],
     description:
       'Support the payments product team in defining requirements, coordinating releases, and analyzing performance metrics for our Latin America markets.',
     requirements: [
@@ -393,11 +395,10 @@ export const jobsMock: Job[] = [
       'Strong written communication',
       'Payments industry interest',
     ],
-    technologies: ['Jira', 'SQL', 'Amplitude', 'Notion'],
-    experience: 'junior',
     salaryRange: '$2,000 - $2,800 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-06T11:00:00.000Z'),
+    experience: 'junior',
+    createdAt: new Date('2026-03-06T11:00:00.000Z'),
     isActive: true,
   },
   {
@@ -405,7 +406,7 @@ export const jobsMock: Job[] = [
     title: 'Vue.js Developer',
     company: 'Rootstrap',
     location: 'Montevideo, Uruguay',
-    categoryId: 'cat-1',
+    roleId: roleIdBySlug['frontend'],
     description:
       'Develop responsive web applications for international clients in the health and wellness space. Participate in client meetings and sprint planning.',
     requirements: [
@@ -414,11 +415,10 @@ export const jobsMock: Job[] = [
       'Responsive design skills',
       'English proficiency (B2+)',
     ],
-    technologies: ['Vue 3', 'Pinia', 'Nuxt', 'TypeScript', 'Tailwind CSS'],
-    experience: 'semi senior',
     salaryRange: '$2,500 - $3,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-06T14:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-06T14:00:00.000Z'),
     isActive: true,
   },
   {
@@ -426,7 +426,7 @@ export const jobsMock: Job[] = [
     title: 'Python Backend Developer',
     company: 'Xapo Bank',
     location: 'Remote',
-    categoryId: 'cat-2',
+    roleId: roleIdBySlug['backend'],
     description:
       'Build and maintain backend services for a global crypto-friendly bank. Work in a fully distributed team across multiple time zones.',
     requirements: [
@@ -435,11 +435,10 @@ export const jobsMock: Job[] = [
       'Knowledge of async patterns',
       'Experience with financial systems is a plus',
     ],
-    technologies: ['Python', 'FastAPI', 'PostgreSQL', 'Celery', 'AWS'],
-    experience: 'mid',
     salaryRange: '$4,000 - $5,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-07T08:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-07T08:00:00.000Z'),
     isActive: true,
   },
   {
@@ -447,7 +446,7 @@ export const jobsMock: Job[] = [
     title: 'iOS Developer',
     company: 'Pedidosya',
     location: 'Montevideo, Uruguay',
-    categoryId: 'cat-4',
+    roleId: roleIdBySlug['mobile'],
     description:
       'Build and improve the iOS experience for the leading food delivery app in Latin America. Optimize for performance, stability, and accessibility.',
     requirements: [
@@ -456,11 +455,10 @@ export const jobsMock: Job[] = [
       'UIKit and SwiftUI experience',
       'App Store release experience',
     ],
-    technologies: ['Swift', 'SwiftUI', 'Combine', 'XCTest', 'Firebase'],
-    experience: 'mid',
     salaryRange: '$3,500 - $4,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-07T09:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-07T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -468,7 +466,7 @@ export const jobsMock: Job[] = [
     title: 'Infrastructure Engineer',
     company: 'NotCo',
     location: 'Santiago, Chile',
-    categoryId: 'cat-5',
+    roleId: roleIdBySlug['devops'],
     description:
       'Build the cloud infrastructure that powers our AI-driven food tech platform. Define standards for IaC, networking, and cost optimization.',
     requirements: [
@@ -477,11 +475,10 @@ export const jobsMock: Job[] = [
       'Networking fundamentals',
       'Security best practices knowledge',
     ],
-    technologies: ['AWS', 'Terraform', 'Ansible', 'Docker', 'GitHub Actions'],
-    experience: 'semi senior',
     salaryRange: '$3,500 - $4,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-07T10:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-07T10:00:00.000Z'),
     isActive: true,
   },
   {
@@ -489,7 +486,7 @@ export const jobsMock: Job[] = [
     title: 'Data Analyst',
     company: 'Tiendanube',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-6',
+    roleId: roleIdBySlug['data-science'],
     description:
       'Analyze merchant and consumer behavior to guide product decisions. Build dashboards and reports for leadership and operations teams.',
     requirements: [
@@ -498,11 +495,10 @@ export const jobsMock: Job[] = [
       'Basic Python or R',
       'Strong presentation skills',
     ],
-    technologies: ['SQL', 'Looker', 'Python', 'BigQuery', 'dbt'],
-    experience: 'junior',
     salaryRange: '$1,800 - $2,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-07T11:00:00.000Z'),
+    experience: 'junior',
+    createdAt: new Date('2026-03-07T11:00:00.000Z'),
     isActive: true,
   },
   {
@@ -510,7 +506,7 @@ export const jobsMock: Job[] = [
     title: 'Product Designer',
     company: 'Increase',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-7',
+    roleId: roleIdBySlug['ui-ux-design'],
     description:
       'Design seamless experiences for merchants using our payment solutions. Work alongside the CPO to define the product vision and ensure user-centered design.',
     requirements: [
@@ -519,11 +515,10 @@ export const jobsMock: Job[] = [
       'Figma advanced skills',
       'Fintech experience preferred',
     ],
-    technologies: ['Figma', 'Principle', 'Notion', 'Hotjar'],
-    experience: 'semi senior',
     salaryRange: '$2,500 - $3,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-07T13:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-07T13:00:00.000Z'),
     isActive: true,
   },
   {
@@ -531,7 +526,7 @@ export const jobsMock: Job[] = [
     title: 'Senior QA Engineer',
     company: 'Mercado Pago',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-8',
+    roleId: roleIdBySlug['qa-testing'],
     description:
       'Lead quality assurance efforts across multiple payment flows. Define testing strategies, mentor junior QA engineers, and contribute to CI/CD quality gates.',
     requirements: [
@@ -540,11 +535,10 @@ export const jobsMock: Job[] = [
       'Performance testing experience',
       'Mentoring skills',
     ],
-    technologies: ['Playwright', 'Java', 'JMeter', 'Allure', 'Jenkins'],
-    experience: 'senior',
     salaryRange: '$4,000 - $5,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-07T14:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-07T14:00:00.000Z'),
     isActive: true,
   },
   {
@@ -552,7 +546,7 @@ export const jobsMock: Job[] = [
     title: 'Penetration Tester',
     company: 'ESET Latinoamérica',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-9',
+    roleId: roleIdBySlug['security'],
     description:
       'Conduct internal and client-facing penetration tests on network, web, and mobile targets. Produce clear, actionable reports for technical and executive audiences.',
     requirements: [
@@ -561,11 +555,10 @@ export const jobsMock: Job[] = [
       'Scripting skills',
       'Report writing',
     ],
-    technologies: ['Kali Linux', 'Metasploit', 'Burp Suite', 'Nmap', 'Python'],
-    experience: 'senior',
     salaryRange: '$4,500 - $6,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-08T08:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-08T08:00:00.000Z'),
     isActive: true,
   },
   {
@@ -573,7 +566,7 @@ export const jobsMock: Job[] = [
     title: 'Product Manager – Growth',
     company: 'Bitso',
     location: 'Remote',
-    categoryId: 'cat-10',
+    roleId: roleIdBySlug['product-management'],
     description:
       'Drive user acquisition and retention strategies for our crypto exchange platform across Mexico, Brazil, and Argentina. Run experiments and own growth metrics.',
     requirements: [
@@ -582,11 +575,10 @@ export const jobsMock: Job[] = [
       'Analytical mindset',
       'Crypto industry interest',
     ],
-    technologies: ['Amplitude', 'SQL', 'Jira', 'Notion', 'Braze'],
-    experience: 'mid',
     salaryRange: '$4,000 - $5,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-08T09:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-08T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -594,7 +586,7 @@ export const jobsMock: Job[] = [
     title: 'Angular Developer',
     company: 'Grupo Supervielle',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-1',
+    roleId: roleIdBySlug['frontend'],
     description:
       'Develop and maintain digital banking web applications. Ensure accessibility compliance and collaborate with UX designers to implement pixel-perfect interfaces.',
     requirements: [
@@ -603,11 +595,10 @@ export const jobsMock: Job[] = [
       'RxJS knowledge',
       'Banking domain knowledge is a plus',
     ],
-    technologies: ['Angular', 'TypeScript', 'RxJS', 'NgRx', 'Jasmine'],
-    experience: 'mid',
     salaryRange: '$2,800 - $3,800 USD/month',
     modality: 'onsite',
-    createdAt: toISODate('2026-03-08T10:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-08T10:00:00.000Z'),
     isActive: true,
   },
   {
@@ -615,7 +606,7 @@ export const jobsMock: Job[] = [
     title: 'Java Backend Engineer',
     company: 'Pragma',
     location: 'Medellín, Colombia',
-    categoryId: 'cat-2',
+    roleId: roleIdBySlug['backend'],
     description:
       'Design and build Java-based microservices for enterprise clients in the banking and insurance sectors. Apply hexagonal architecture and DDD principles.',
     requirements: [
@@ -624,11 +615,10 @@ export const jobsMock: Job[] = [
       'Knowledge of DDD and clean architecture',
       'Microservices experience',
     ],
-    technologies: ['Java', 'Spring Boot', 'Kafka', 'PostgreSQL', 'Docker'],
-    experience: 'senior',
     salaryRange: 'COP 8,000,000 - 11,000,000/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-08T11:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-08T11:00:00.000Z'),
     isActive: true,
   },
   {
@@ -636,7 +626,7 @@ export const jobsMock: Job[] = [
     title: 'Full Stack Engineer (Node + React)',
     company: 'Mango',
     location: 'Remote',
-    categoryId: 'cat-3',
+    roleId: roleIdBySlug['full-stack'],
     description:
       'Build product features across the stack for a B2B SaaS startup. You will have a high degree of autonomy and direct impact on product direction.',
     requirements: [
@@ -645,11 +635,10 @@ export const jobsMock: Job[] = [
       'Database design skills',
       'Startup mindset',
     ],
-    technologies: ['React', 'Node.js', 'TypeScript', 'MongoDB', 'Vercel'],
-    experience: 'mid',
     salaryRange: '$3,500 - $5,000 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-08T13:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-08T13:00:00.000Z'),
     isActive: true,
   },
   {
@@ -657,7 +646,7 @@ export const jobsMock: Job[] = [
     title: 'Flutter Developer',
     company: 'Fudo',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-4',
+    roleId: roleIdBySlug['mobile'],
     description:
       'Build cross-platform mobile apps for restaurant management. Work with a small, highly skilled team to ship features quickly and reliably.',
     requirements: [
@@ -666,11 +655,10 @@ export const jobsMock: Job[] = [
       'State management (Bloc or Riverpod)',
       'REST API integration',
     ],
-    technologies: ['Flutter', 'Dart', 'Bloc', 'Firebase', 'Git'],
-    experience: 'semi senior',
     salaryRange: '$2,500 - $3,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-09T08:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-09T08:00:00.000Z'),
     isActive: true,
   },
   {
@@ -678,7 +666,7 @@ export const jobsMock: Job[] = [
     title: 'Platform Engineer',
     company: 'Configu',
     location: 'Remote',
-    categoryId: 'cat-5',
+    roleId: roleIdBySlug['devops'],
     description:
       'Build developer tooling and internal platform capabilities for engineering teams worldwide. Focus on developer experience, reliability, and self-service infrastructure.',
     requirements: [
@@ -687,11 +675,10 @@ export const jobsMock: Job[] = [
       'Kubernetes and Helm expertise',
       'Strong communication skills',
     ],
-    technologies: ['Go', 'Kubernetes', 'Helm', 'ArgoCD', 'Terraform'],
-    experience: 'senior',
     salaryRange: '$6,000 - $8,000 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-09T09:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-09T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -699,7 +686,7 @@ export const jobsMock: Job[] = [
     title: 'BI Developer',
     company: 'Cencosud',
     location: 'Santiago, Chile',
-    categoryId: 'cat-6',
+    roleId: roleIdBySlug['data-science'],
     description:
       'Design and maintain business intelligence solutions for retail operations across Latin America. Translate business needs into robust data models and dashboards.',
     requirements: [
@@ -708,11 +695,10 @@ export const jobsMock: Job[] = [
       'Data warehousing knowledge',
       'Retail domain knowledge is a plus',
     ],
-    technologies: ['Power BI', 'SQL Server', 'dbt', 'Azure Synapse', 'Python'],
-    experience: 'mid',
     salaryRange: 'CLP 2,500,000 - 3,500,000/month',
     modality: 'onsite',
-    createdAt: toISODate('2026-03-09T10:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-09T10:00:00.000Z'),
     isActive: true,
   },
   {
@@ -720,7 +706,7 @@ export const jobsMock: Job[] = [
     title: 'Junior UI/UX Designer',
     company: 'Envíame',
     location: 'Santiago, Chile',
-    categoryId: 'cat-7',
+    roleId: roleIdBySlug['ui-ux-design'],
     description:
       'Assist the design team in creating wireframes, prototypes, and visual assets for our logistics platform. Great opportunity to grow in a collaborative environment.',
     requirements: [
@@ -729,11 +715,10 @@ export const jobsMock: Job[] = [
       'Understanding of UX principles',
       'Attention to detail',
     ],
-    technologies: ['Figma', 'Adobe XD', 'Notion', 'Maze'],
-    experience: 'junior',
     salaryRange: 'CLP 1,200,000 - 1,600,000/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-09T11:00:00.000Z'),
+    experience: 'junior',
+    createdAt: new Date('2026-03-09T11:00:00.000Z'),
     isActive: true,
   },
   {
@@ -741,7 +726,7 @@ export const jobsMock: Job[] = [
     title: 'QA Automation Lead',
     company: 'Nubiral',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-8',
+    roleId: roleIdBySlug['qa-testing'],
     description:
       'Lead a team of automation engineers and define the testing strategy for cloud-based enterprise solutions. Drive adoption of testing best practices company-wide.',
     requirements: [
@@ -750,11 +735,10 @@ export const jobsMock: Job[] = [
       'Cloud testing knowledge',
       'Agile coaching skills',
     ],
-    technologies: ['Cypress', 'Selenium', 'Java', 'AWS Device Farm', 'GitHub Actions'],
-    experience: 'senior',
     salaryRange: '$4,500 - $6,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-09T13:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-09T13:00:00.000Z'),
     isActive: true,
   },
   {
@@ -762,7 +746,7 @@ export const jobsMock: Job[] = [
     title: 'IAM Security Engineer',
     company: 'Mercado Libre',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-9',
+    roleId: roleIdBySlug['security'],
     description:
       "Design and operate identity and access management systems for one of Latin America's largest tech companies. Ensure least-privilege principles across thousands of services.",
     requirements: [
@@ -771,11 +755,10 @@ export const jobsMock: Job[] = [
       'Scripting proficiency',
       'Large-scale systems experience',
     ],
-    technologies: ['Okta', 'AWS IAM', 'Python', 'Terraform', 'Vault'],
-    experience: 'senior',
     salaryRange: '$5,000 - $7,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-09T14:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-09T14:00:00.000Z'),
     isActive: true,
   },
   {
@@ -783,7 +766,7 @@ export const jobsMock: Job[] = [
     title: 'Product Manager – Platform',
     company: 'Inswitch',
     location: 'Montevideo, Uruguay',
-    categoryId: 'cat-10',
+    roleId: roleIdBySlug['product-management'],
     description:
       'Own the roadmap for our payment-as-a-service platform. Work with engineering leads, clients, and regulators to define and prioritize platform capabilities.',
     requirements: [
@@ -792,11 +775,10 @@ export const jobsMock: Job[] = [
       'Payments or fintech background',
       'Stakeholder management skills',
     ],
-    technologies: ['Confluence', 'Jira', 'SQL', 'Postman', 'Figma'],
-    experience: 'senior',
     salaryRange: '$4,500 - $6,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-10T08:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-10T08:00:00.000Z'),
     isActive: true,
   },
   {
@@ -804,7 +786,7 @@ export const jobsMock: Job[] = [
     title: 'Next.js Developer',
     company: 'Intellihr',
     location: 'Remote',
-    categoryId: 'cat-1',
+    roleId: roleIdBySlug['frontend'],
     description:
       'Build performant, SEO-optimized web applications with Next.js for an HR tech platform serving Australian and Latin American markets.',
     requirements: [
@@ -813,11 +795,10 @@ export const jobsMock: Job[] = [
       'Experience with SSR/SSG patterns',
       'Vercel or AWS deployment',
     ],
-    technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Prisma'],
-    experience: 'mid',
     salaryRange: '$3,500 - $4,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-10T09:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-10T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -825,7 +806,7 @@ export const jobsMock: Job[] = [
     title: 'Go Backend Developer',
     company: 'Lemon Cash',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-2',
+    roleId: roleIdBySlug['backend'],
     description:
       'Develop high-performance backend services in Go for our crypto wallet and exchange platform. Work with a small, elite engineering team.',
     requirements: [
@@ -834,11 +815,10 @@ export const jobsMock: Job[] = [
       'gRPC or REST API experience',
       'Blockchain basics are a plus',
     ],
-    technologies: ['Go', 'gRPC', 'PostgreSQL', 'Redis', 'Docker'],
-    experience: 'semi senior',
     salaryRange: '$3,500 - $4,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-10T10:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-10T10:00:00.000Z'),
     isActive: true,
   },
   {
@@ -846,7 +826,7 @@ export const jobsMock: Job[] = [
     title: 'Full Stack Developer (Django + React)',
     company: 'Satellogic',
     location: 'Remote',
-    categoryId: 'cat-3',
+    roleId: roleIdBySlug['full-stack'],
     description:
       'Build internal tools and customer-facing applications for processing and visualizing satellite imagery data. Work at the intersection of geospatial tech and web development.',
     requirements: [
@@ -855,11 +835,10 @@ export const jobsMock: Job[] = [
       'REST API design',
       'Interest in geospatial technology',
     ],
-    technologies: ['Django', 'React', 'Python', 'PostGIS', 'Mapbox GL'],
-    experience: 'mid',
     salaryRange: '$4,000 - $5,500 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-10T11:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-10T11:00:00.000Z'),
     isActive: true,
   },
   {
@@ -867,7 +846,7 @@ export const jobsMock: Job[] = [
     title: 'Senior React Native Developer',
     company: 'Pomelo',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-4',
+    roleId: roleIdBySlug['mobile'],
     description:
       'Lead mobile development efforts for a card-issuing fintech. Define architecture patterns, review code, and drive performance improvements.',
     requirements: [
@@ -876,11 +855,10 @@ export const jobsMock: Job[] = [
       'Mentoring experience',
       'Fintech domain knowledge preferred',
     ],
-    technologies: ['React Native', 'TypeScript', 'Reanimated', 'Detox', 'Firebase'],
-    experience: 'senior',
     salaryRange: '$5,000 - $7,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-10T13:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-10T13:00:00.000Z'),
     isActive: true,
   },
   {
@@ -888,7 +866,7 @@ export const jobsMock: Job[] = [
     title: 'Junior DevOps Engineer',
     company: 'Hexacta',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-5',
+    roleId: roleIdBySlug['devops'],
     description:
       'Assist in managing CI/CD pipelines and cloud infrastructure for client projects. Learn from senior engineers and gain hands-on experience with modern DevOps tooling.',
     requirements: [
@@ -897,11 +875,10 @@ export const jobsMock: Job[] = [
       'Eager to learn cloud technologies',
       'Good communication skills',
     ],
-    technologies: ['Docker', 'GitHub Actions', 'AWS (basics)', 'Bash', 'Nginx'],
-    experience: 'junior',
     salaryRange: '$1,500 - $2,200 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-10T14:00:00.000Z'),
+    experience: 'junior',
+    createdAt: new Date('2026-03-10T14:00:00.000Z'),
     isActive: true,
   },
   {
@@ -909,7 +886,7 @@ export const jobsMock: Job[] = [
     title: 'Senior Data Engineer',
     company: 'Bantotal',
     location: 'Montevideo, Uruguay',
-    categoryId: 'cat-6',
+    roleId: roleIdBySlug['data-science'],
     description:
       'Design and build reliable data pipelines and lake architecture for banking clients across Latin America. Define data governance standards and mentor data engineers.',
     requirements: [
@@ -918,11 +895,10 @@ export const jobsMock: Job[] = [
       'Data lake/warehouse design',
       'Banking domain knowledge',
     ],
-    technologies: ['Apache Spark', 'Airflow', 'dbt', 'Snowflake', 'Python'],
-    experience: 'senior',
     salaryRange: '$5,000 - $6,500 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-11T08:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-11T08:00:00.000Z'),
     isActive: true,
   },
   {
@@ -930,7 +906,7 @@ export const jobsMock: Job[] = [
     title: 'Design Systems Designer',
     company: 'Nuvemshop',
     location: 'São Paulo, Brazil',
-    categoryId: 'cat-7',
+    roleId: roleIdBySlug['ui-ux-design'],
     description:
       'Own and evolve our design system used by 20+ product teams. Create reusable components, documentation, and governance processes to ensure consistency across the platform.',
     requirements: [
@@ -939,11 +915,10 @@ export const jobsMock: Job[] = [
       'Collaboration with engineering',
       'Documentation skills',
     ],
-    technologies: ['Figma', 'Storybook', 'Zeroheight', 'Notion'],
-    experience: 'semi senior',
     salaryRange: 'R$9,000 - R$13,000/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-11T09:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-11T09:00:00.000Z'),
     isActive: true,
   },
   {
@@ -951,7 +926,7 @@ export const jobsMock: Job[] = [
     title: 'QA Engineer – Mobile',
     company: 'Naranja X',
     location: 'Córdoba, Argentina',
-    categoryId: 'cat-8',
+    roleId: roleIdBySlug['qa-testing'],
     description:
       'Ensure quality for our iOS and Android banking apps. Plan test strategies, execute automation, and collaborate with developers to achieve high release confidence.',
     requirements: [
@@ -960,11 +935,10 @@ export const jobsMock: Job[] = [
       'Bug lifecycle management',
       'Agile team experience',
     ],
-    technologies: ['Appium', 'JavaScript', 'TestRail', 'Charles Proxy', 'BrowserStack'],
-    experience: 'semi senior',
     salaryRange: '$2,200 - $3,200 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-11T10:00:00.000Z'),
+    experience: 'semi-senior',
+    createdAt: new Date('2026-03-11T10:00:00.000Z'),
     isActive: true,
   },
   {
@@ -972,7 +946,7 @@ export const jobsMock: Job[] = [
     title: 'GRC Security Analyst',
     company: 'Bancolombia',
     location: 'Medellín, Colombia',
-    categoryId: 'cat-9',
+    roleId: roleIdBySlug['security'],
     description:
       "Support the governance, risk, and compliance program for one of Colombia's largest banks. Assess controls, manage audits, and drive ISO 27001 certification activities.",
     requirements: [
@@ -981,11 +955,10 @@ export const jobsMock: Job[] = [
       'Audit management skills',
       'Strong documentation skills',
     ],
-    technologies: ['ServiceNow GRC', 'Excel', 'PowerPoint', 'Archer'],
-    experience: 'mid',
     salaryRange: 'COP 6,000,000 - 8,000,000/month',
     modality: 'onsite',
-    createdAt: toISODate('2026-03-11T11:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-11T11:00:00.000Z'),
     isActive: true,
   },
   {
@@ -993,7 +966,7 @@ export const jobsMock: Job[] = [
     title: 'Senior Product Manager',
     company: 'Ank',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-10',
+    roleId: roleIdBySlug['product-management'],
     description:
       'Lead product strategy and execution for a B2B SaaS platform in the logistics sector. Work directly with the CEO and CTO to shape the company roadmap.',
     requirements: [
@@ -1002,11 +975,10 @@ export const jobsMock: Job[] = [
       'Strong analytical skills',
       'Leadership experience',
     ],
-    technologies: ['Jira', 'SQL', 'Metabase', 'Figma', 'Notion'],
-    experience: 'senior',
     salaryRange: '$5,000 - $7,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-11T12:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-11T12:00:00.000Z'),
     isActive: true,
   },
   {
@@ -1014,7 +986,7 @@ export const jobsMock: Job[] = [
     title: 'React Developer – E-commerce',
     company: 'Tiendanube',
     location: 'Buenos Aires, Argentina',
-    categoryId: 'cat-1',
+    roleId: roleIdBySlug['frontend'],
     description:
       'Build scalable storefronts and checkout flows for thousands of merchants on our platform. Work with performance and accessibility as first-class concerns.',
     requirements: [
@@ -1023,11 +995,10 @@ export const jobsMock: Job[] = [
       'Web performance optimization skills',
       'Accessibility (WCAG) knowledge',
     ],
-    technologies: ['React', 'TypeScript', 'GraphQL', 'Styled Components', 'Webpack'],
-    experience: 'mid',
     salaryRange: '$3,000 - $4,000 USD/month',
     modality: 'hybrid',
-    createdAt: toISODate('2026-03-11T13:00:00.000Z'),
+    experience: 'mid',
+    createdAt: new Date('2026-03-11T13:00:00.000Z'),
     isActive: true,
   },
   {
@@ -1035,7 +1006,7 @@ export const jobsMock: Job[] = [
     title: 'Senior Full Stack Engineer',
     company: 'Vercel (contractor)',
     location: 'Remote',
-    categoryId: 'cat-3',
+    roleId: roleIdBySlug['full-stack'],
     description:
       'Contribute to internal tooling and developer experience features for a globally distributed team. High autonomy, high impact, and a world-class engineering culture.',
     requirements: [
@@ -1044,11 +1015,31 @@ export const jobsMock: Job[] = [
       'Experience with edge computing or serverless',
       'Open source contributions preferred',
     ],
-    technologies: ['Next.js', 'TypeScript', 'Node.js', 'Edge Runtime', 'PostgreSQL'],
-    experience: 'senior',
     salaryRange: '$7,000 - $10,000 USD/month',
     modality: 'remote',
-    createdAt: toISODate('2026-03-11T14:00:00.000Z'),
+    experience: 'senior',
+    createdAt: new Date('2026-03-11T14:00:00.000Z'),
     isActive: true,
   },
 ];
+
+async function main() {
+  console.log('Seeding database...');
+
+  await prisma.role.createMany({ data: roles, skipDuplicates: true });
+  console.log(`✓ ${roles.length} roles created`);
+
+  await prisma.job.createMany({ data: jobs, skipDuplicates: true });
+  console.log(`✓ ${jobs.length} jobs created`);
+
+  console.log('Seed completed successfully');
+}
+
+main()
+  .catch(e => {
+    console.error('Seed failed:', e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

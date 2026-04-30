@@ -1,0 +1,51 @@
+generator client {
+  provider   = "prisma-client"
+  output     = "../src/generated/prisma"
+  engineType = "client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Role {
+  id   String @id @default(uuid())
+  name String @db.VarChar(100)
+  slug String @unique @db.VarChar(100)
+  jobs Job[]
+
+  @@map("roles")
+}
+
+model Job {
+  id           String        @id @default(uuid())
+  title        String        @db.VarChar(200)
+  company      String        @db.VarChar(200)
+  location     String        @db.VarChar(200)
+  roleId       String?       @map("role_id")
+  role         Role?         @relation(fields: [roleId], references: [id])
+  description  String        @db.Text
+  requirements String[]
+  salaryRange  String?       @map("salary_range") @db.VarChar(100)
+  modality     String        @db.VarChar(20)
+  experience   String        @db.VarChar(20)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  isActive     Boolean       @default(true) @map("is_active")
+  applications Application[]
+
+  @@map("jobs")
+}
+
+model Application {
+  id             String   @id @default(uuid())
+  jobId          String   @map("job_id")
+  job            Job      @relation(fields: [jobId], references: [id])
+  userId         String   @map("user_id") @db.VarChar(36)
+  applicantName  String   @map("applicant_name") @db.VarChar(200)
+  applicantEmail String   @map("applicant_email") @db.VarChar(200)
+  coverLetter    String?  @map("cover_letter") @db.Text
+  status         String   @default("pending") @db.VarChar(20)
+  appliedAt      DateTime @default(now()) @map("applied_at")
+
+  @@map("applications")
+}

@@ -1,6 +1,6 @@
 import { ISODateString } from '../types';
 
-export type ExperienceLevel = 'junior' | 'mid' | 'semi senior' | 'senior';
+export type ExperienceLevel = 'junior' | 'mid' | 'semi-senior' | 'senior';
 export type JobModality = 'remote' | 'onsite' | 'hybrid';
 
 export interface Job {
@@ -8,7 +8,7 @@ export interface Job {
   title: string;
   company: string;
   location: string;
-  categoryId: string;
+  role: string;
   description: string;
   requirements: string[];
   technologies: string[];
