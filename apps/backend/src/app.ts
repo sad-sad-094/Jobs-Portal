@@ -5,7 +5,11 @@ import { errorMiddleware } from './middlewares/error.middleware';
 
 const app: Express = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL ?? '*',
+  }),
+);
 app.use(express.json());
 
 app.get('/api/health', (_req, res): void => {
