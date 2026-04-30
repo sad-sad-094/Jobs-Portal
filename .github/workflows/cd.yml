@@ -7,8 +7,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/job-portal-backend
-  FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/job-portal-frontend
+  BACKEND_IMAGE: ghcr.io/${{ github.sad-sad-094 }}/job-portal-backend
+  FRONTEND_IMAGE: ghcr.io/${{ github.sad-sad-094 }}/job-portal-frontend
 
 jobs:
   build-and-push:
