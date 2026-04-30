@@ -70,4 +70,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
 
 ENTRYPOINT ["/sbin/tini", "--"]
 # Seed removed: run once manually or via a migration job, not on every container start
-CMD ["sh", "-c", "pnpm exec prisma migrate deploy && node dist/server.js"]
+CMD ["sh", "-c", "DATABASE_URL=$DATABASE_URL npx prisma migrate deploy --schema=./prisma/schema.prisma && node dist/server.js"]
