@@ -1,0 +1,40 @@
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies (installed fresh in Docker)
+node_modules
+**/node_modules
+
+# Build artifacts (rebuilt in Docker)
+dist
+**/dist
+
+# Git and VCS
+.git
+.gitignore
+.gitattributes
+
+# CI / tooling
+.github
+.turbo
+
+# Editor artifacts
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Test artifacts
+coverage
+**/.nyc_output

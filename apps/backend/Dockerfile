@@ -1,5 +1,5 @@
 # ─── Stage 1: Builder ───────────────────────────────────────────────
-FROM node:20-alpine AS builder
+FROM node:20.19.1-alpine3.21 AS builder
 
 RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
 
@@ -32,7 +32,10 @@ RUN pnpm --filter @job-portal/backend db:generate
 RUN pnpm --filter @job-portal/backend build
 
 # ─── Stage 2: Runner ────────────────────────────────────────────────
-FROM node:20-alpine AS runner
+FROM node:20.19.1-alpine3.21 AS runner
+
+# tini: proper PID 1 init — forwards signals to Node, reaps zombies
+RUN apk add --no-cache tini
 
 RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
 
@@ -47,7 +50,6 @@ COPY --from=builder /app/apps/backend/package.json ./apps/backend/
 RUN pnpm install --frozen-lockfile --prod
 
 COPY --from=builder /app/apps/backend/dist ./apps/backend/dist
-COPY --from=builder /app/apps/backend/src/generated ./apps/backend/src/generated
 COPY --from=builder /app/apps/backend/prisma ./apps/backend/prisma
 COPY --from=builder /app/apps/backend/prisma.config.ts ./apps/backend/prisma.config.ts
 
@@ -58,6 +60,14 @@ USER node
 
 WORKDIR /app/apps/backend
 
+ENV NODE_ENV=production
+ENV BACKEND_PORT=8080
+
 EXPOSE 8080
 
-CMD ["sh", "-c", "pnpm exec prisma migrate deploy && node dist/db/seed.js && node dist/server.js"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+  CMD wget -qO- http://localhost:8080/api/health || exit 1
+
+ENTRYPOINT ["/sbin/tini", "--"]
+# Seed removed: run once manually or via a migration job, not on every container start
+CMD ["sh", "-c", "pnpm exec prisma migrate deploy && node dist/server.js"]
