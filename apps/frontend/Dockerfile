@@ -1,5 +1,5 @@
 # ─── Stage 1: Builder ───────────────────────────────────────────────
-FROM node:20-alpine AS builder
+FROM node:20.19.1-alpine3.21 AS builder
 
 RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
 
@@ -32,14 +32,16 @@ ENV VITE_API_URL=$VITE_API_URL
 RUN pnpm --filter @job-portal/frontend build
 
 # ─── Stage 2: Runner ────────────────────────────────────────────────
-FROM nginx:alpine AS runner
+# nginx-unprivileged: runs as non-root uid 101, listens on 8080
+FROM nginxinc/nginx-unprivileged:1.28-alpine AS runner
 
-# Copiar el build estático al directorio de Nginx
 COPY --from=builder /app/apps/frontend/dist /usr/share/nginx/html
 
-# Copiar configuración de Nginx
 COPY apps/frontend/nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:8080/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
