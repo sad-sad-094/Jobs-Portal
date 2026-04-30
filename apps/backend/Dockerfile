@@ -25,8 +25,10 @@ COPY apps/backend ./apps/backend
 # Buildear shared primero
 RUN pnpm --filter @job-portal/shared build
 
-# Generar el cliente de Prisma
+# Generar el cliente de Prisma (dummy URL — generate doesn't connect to DB)
+ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
 RUN pnpm --filter @job-portal/backend db:generate
+ENV DATABASE_URL=""
 
 # Compilar el backend
 RUN pnpm --filter @job-portal/backend build
