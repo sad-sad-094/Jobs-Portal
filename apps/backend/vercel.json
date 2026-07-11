@@ -1,16 +1,10 @@
 {
   "version": 2,
-  "outputDirectory": "dist",
-  "builds": [
+  "buildCommand": "pnpm --filter @job-portal/shared build && prisma generate",
+  "rewrites": [
     {
-      "src": "dist/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "dist/server.js"
+      "source": "/(.*)",
+      "destination": "/api/index.ts"
     }
   ]
 }
