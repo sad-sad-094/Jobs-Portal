@@ -1,6 +1,7 @@
 {
   "version": 2,
   "buildCommand": "pnpm --filter @job-portal/shared build && prisma generate",
+  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/(.*)",
