@@ -83,6 +83,15 @@ This starts both the backend and frontend simultaneously via Turborepo.
 | Frontend | http://localhost:5173 |
 | Backend | http://localhost:8080 |
 
+## Live Deployment
+
+| Service | URL |
+|---------|-----|
+| Frontend | https://jobs-portal-frontend-ashy.vercel.app |
+| Backend API | https://jobs-portal-backend-silk.vercel.app/api |
+
+Both apps are deployed on Vercel, with the database hosted on Neon (PostgreSQL).
+
 ## Available Scripts
 
 | Script | Description |
