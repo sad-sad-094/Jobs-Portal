@@ -1,6 +1,7 @@
 import { Job } from '@job-portal/shared';
 import Badge from '../../../components/ui/Badge';
 import ApplicationForm from '../../applications/components/ApplicationForm';
+import { useJobSeo } from '../hooks/useJobSeo';
 
 interface JobDetailProps {
   job: Job;
@@ -28,6 +29,8 @@ const experienceVariants: Record<Job['experience'], 'primary' | 'warning' | 'suc
   };
 
 const JobDetail = ({ job }: JobDetailProps) => {
+  useJobSeo(job);
+
   return (
     <div className="mx-auto max-w-3xl">
       <div className="rounded-(--radius-xl) border border-(--color-border) bg-(--color-surface) p-8">
