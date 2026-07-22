@@ -1,0 +1,15 @@
+# Job Portal
+
+> Job board where candidates browse open roles and apply directly. Companies post positions with experience level, modality (remote/onsite/hybrid), technologies and salary range.
+
+## Pages
+
+- [Home](https://jobs-portal-frontend-ashy.vercel.app/): landing page, entry point to job search.
+- [Jobs](https://jobs-portal-frontend-ashy.vercel.app/jobs): searchable, filterable list of all open job postings.
+- Job detail pages (`/jobs/:id`): full description, requirements, technologies and an application form for a single role.
+
+## Notes for AI agents and assistants
+
+- Job listings are fetched client-side; each job detail page exposes a JobPosting JSON-LD block (schema.org) with title, company, location, description and employment type.
+- The `/applications` page is personal (per-user application status) and excluded from indexing.
+- API base: https://jobs-portal-backend-silk.vercel.app/api

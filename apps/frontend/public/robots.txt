@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /applications
+
+Sitemap: https://jobs-portal-frontend-ashy.vercel.app/sitemap.xml
