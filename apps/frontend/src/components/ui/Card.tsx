@@ -13,7 +13,7 @@ const Card = ({
   return (
     <div
       className={`
-        rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-6
+        rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4 sm:p-6
         ${hoverable ? 'transition-colors hover:border-(--color-primary)/50 hover:bg-(--color-surface-raised) cursor-pointer' : ''}
         ${className}
       `}

@@ -41,9 +41,9 @@ const ApplicationList = () => {
         return (
           <div
             key={appl.id}
-            className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-5"
+            className="rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4 sm:p-5"
           >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex flex-col gap-1">
                 <p className="font-medium text-(--color-text-primary)">Job ID: {appl.jobId}</p>
                 <p className="text-sm text-(--color-text-muted)">

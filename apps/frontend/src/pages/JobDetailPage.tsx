@@ -1,7 +1,7 @@
 import { useParams } from '@tanstack/react-router';
 import { useJobDetail } from '../features/jobs/hooks/useJobDetail';
 import JobDetail from '../features/jobs/components/JobDetail';
-import Spinner from '../components/ui/Spinner';
+import JobDetailSkeleton from '../features/jobs/components/JobDetailSkeleton';
 import Button from '../components/ui/Button';
 import { useNavigate } from '@tanstack/react-router';
 
@@ -12,8 +12,11 @@ const JobDetailPage = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center py-16">
-        <Spinner size="lg" />
+      <div className="flex flex-col gap-4">
+        <Button variant="ghost" size="sm" disabled className="self-start">
+          ← Back to jobs
+        </Button>
+        <JobDetailSkeleton />
       </div>
     );
   }
