@@ -31,7 +31,7 @@ const selectClass = `
 
 const JobFilters = ({ filters, onChange }: JobFiltersProps) => {
   return (
-    <div className="flex flex-col gap-4 rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4 sm:flex-row sm:items-end">
+    <div className="flex flex-col gap-4 rounded-(--radius-lg) border border-(--color-border) bg-(--color-surface) p-4 md:flex-row md:items-end">
       <div className="flex-1">
         <Input
           id="search"
@@ -43,40 +43,42 @@ const JobFilters = ({ filters, onChange }: JobFiltersProps) => {
         />
       </div>
 
-      <div className="flex flex-col gap-1.5 sm:w-48">
-        <label htmlFor="modality" className="text-sm font-medium text-(--color-text-secondary)">
-          Modality
-        </label>
-        <select
-          id="modality"
-          value={filters.modality ?? ''}
-          onChange={e => onChange({ ...filters, modality: e.target.value || undefined })}
-          className={selectClass}
-        >
-          {modalityOptions.map(opt => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:contents">
+        <div className="flex flex-col gap-1.5 md:w-48">
+          <label htmlFor="modality" className="text-sm font-medium text-(--color-text-secondary)">
+            Modality
+          </label>
+          <select
+            id="modality"
+            value={filters.modality ?? ''}
+            onChange={e => onChange({ ...filters, modality: e.target.value || undefined })}
+            className={selectClass}
+          >
+            {modalityOptions.map(opt => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="flex flex-col gap-1.5 sm:w-48">
-        <label htmlFor="experience" className="text-sm font-medium text-(--color-text-secondary)">
-          Experience
-        </label>
-        <select
-          id="experience"
-          value={filters.experience ?? ''}
-          onChange={e => onChange({ ...filters, experience: e.target.value || undefined })}
-          className={selectClass}
-        >
-          {experienceOptions.map(opt => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <div className="flex flex-col gap-1.5 md:w-48">
+          <label htmlFor="experience" className="text-sm font-medium text-(--color-text-secondary)">
+            Experience
+          </label>
+          <select
+            id="experience"
+            value={filters.experience ?? ''}
+            onChange={e => onChange({ ...filters, experience: e.target.value || undefined })}
+            className={selectClass}
+          >
+            {experienceOptions.map(opt => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </div>
   );

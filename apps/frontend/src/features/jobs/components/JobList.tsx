@@ -13,7 +13,7 @@ const SKELETON_COUNT = 6;
 const JobList = ({ jobs, isLoading, isError }: JobListProps) => {
   if (isLoading) {
     return (
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
           <JobCardSkeleton key={i} />
         ))}
@@ -41,7 +41,7 @@ const JobList = ({ jobs, isLoading, isError }: JobListProps) => {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {jobs.map(job => (
         <JobCard key={job.id} job={job} />
       ))}

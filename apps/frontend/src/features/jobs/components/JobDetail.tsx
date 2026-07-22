@@ -33,12 +33,14 @@ const JobDetail = ({ job }: JobDetailProps) => {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="rounded-(--radius-xl) border border-(--color-border) bg-(--color-surface) p-8">
+      <div className="rounded-(--radius-xl) border border-(--color-border) bg-(--color-surface) p-4 sm:p-6 md:p-8">
         <div className="flex flex-col gap-6">
           {/* Header */}
           <div className="flex flex-col gap-2">
-            <div className="flex items-start justify-between gap-4">
-              <h1 className="text-2xl font-bold text-(--color-text-primary)">{job.title}</h1>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <h1 className="text-xl font-bold text-(--color-text-primary) sm:text-2xl">
+                {job.title}
+              </h1>
               <Badge
                 label={experienceLabels[job.experience]}
                 variant={experienceVariants[job.experience]}
