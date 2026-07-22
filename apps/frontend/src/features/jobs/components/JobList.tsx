@@ -1,6 +1,6 @@
 import { Job } from '@job-portal/shared';
 import JobCard from './JobCard';
-import Spinner from '../../../components/ui/Spinner';
+import JobCardSkeleton from './JobCardSkeleton';
 
 interface JobListProps {
   jobs: Job[];
@@ -8,11 +8,15 @@ interface JobListProps {
   isError: boolean;
 }
 
+const SKELETON_COUNT = 6;
+
 const JobList = ({ jobs, isLoading, isError }: JobListProps) => {
   if (isLoading) {
     return (
-      <div className="flex justify-center py-16">
-        <Spinner size="lg" />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+          <JobCardSkeleton key={i} />
+        ))}
       </div>
     );
   }
